@@ -25,6 +25,10 @@ const styles = StyleSheet.create({
     drawerItem: {
         padding: 18,
     },
+    img: {
+        width: 24,
+        height: 24
+    },
     txt: {
         fontSize: 18,
     }

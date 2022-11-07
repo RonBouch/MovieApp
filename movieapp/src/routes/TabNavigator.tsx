@@ -1,32 +1,37 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Text } from 'react-native'
+import { Image, StyleSheet } from 'react-native'
 import { HomePage, Favorite } from '../screens';
-import { SCREENS } from '../utilities/enum';
+import { COLORS } from '../utilities/enum';
 
 const Tab = createBottomTabNavigator();
 
 const TabsNavigator = () => {
     return (
         <Tab.Navigator
-            initialRouteName='Home'
+            initialRouteName='My Home'
             screenOptions={{
                 headerShown: false,
-                tabBarStyle: { backgroundColor: 'black' },
-                tabBarInactiveTintColor: 'white',
-            }}
-        >
+                tabBarStyle: styles.tabBarStyle,
+                tabBarInactiveTintColor: COLORS.WHITE,
+            }} >
             <Tab.Screen
-                name='Home'
+                name='My Home'
                 component={HomePage}
-                options={{ tabBarIcon: () => (<Text>H</Text>) }} />
+                options={{ tabBarIcon: () => (<Image style={styles.img} source={require('../../assets/icons8-home-48.png')} />) }} />
             <Tab.Screen
-                name='Fav'
+                name='Favorites'
                 component={Favorite}
-                options={{ tabBarIcon: () => (<Text>F</Text>) }} />
+                options={{ tabBarIcon: () => (<Image style={styles.img} source={require('../../assets/icons8-star-64.png')} />) }} />
         </Tab.Navigator>
     )
 }
 
-
+const styles = StyleSheet.create({
+    img: {
+        width: 24,
+        height: 24,
+    },
+    tabBarStyle: { backgroundColor: COLORS.BLACK },
+})
 export default TabsNavigator;

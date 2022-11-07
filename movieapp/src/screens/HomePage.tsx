@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, ScrollView } from 'react-native';
+import { COLORS } from '../utilities/enum';
 
 const HomePage = (props: any) => {
     React.useEffect(() => {
@@ -16,7 +17,7 @@ const HomePage = (props: any) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'black',
+        backgroundColor: COLORS.BLACK,
     },
 })
 

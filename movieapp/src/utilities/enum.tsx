@@ -3,3 +3,9 @@ export const SCREENS: any = {
     Favorite: 'Favorite',
     Login: 'Login',
 }
+
+export const COLORS: any = {
+    BLACK: 'black',
+    WHITE: 'white',
+    RED: 'red',
+}
