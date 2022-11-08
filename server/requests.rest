@@ -1,0 +1,11 @@
+GET http://localhost:5000/getMovies
+
+###
+
+POST http://localhost:5000/login
+Content-Type: application/json
+
+
+{
+    "username":"ron"
+}

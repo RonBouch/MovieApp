@@ -10,14 +10,13 @@ const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = () => (
     <Drawer.Navigator
-        initialRouteName={SCREENS.HomePage}
+        initialRouteName={SCREENS.Login}
         screenOptions={{
             headerStyle: { backgroundColor: COLORS.RED },
             headerTintColor: COLORS.WHITE,
         }}
         drawerContent={() => <SideMenu />}>
         <Drawer.Screen name={SCREENS.HomePage} component={TabsNavigator} />
-        <Drawer.Screen name={SCREENS.Login} component={Login} />
     </Drawer.Navigator>
 )
 

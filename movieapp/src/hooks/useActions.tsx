@@ -1,13 +1,14 @@
 import { useDispatch } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { clearStore, getMoviesApi } from '../stores/actions'
-import { removeMovies } from '../stores/slices/moviesSlice'
+import { getMoviesApi } from '../stores/actions'
+import { setIsLoading } from '../stores/slices/moviesSlice'
+import { setFavorite, setUserDetails, setIsConnected } from '../stores/slices/userSlice';
 
 const useActions = () => {
     const dispatch = useDispatch()
 
-    return bindActionCreators({ getMoviesApi, removeMovies, clearStore }, dispatch)
+    return bindActionCreators({ getMoviesApi, setIsLoading, setFavorite, setUserDetails, setIsConnected }, dispatch)
 }
 
 export default useActions

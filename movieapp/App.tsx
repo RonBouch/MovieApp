@@ -3,18 +3,18 @@ import React, { useEffect } from 'react';
 import store from './src/stores';
 import { Provider } from 'react-redux'
 import { SafeAreaView, StatusBar, StyleSheet } from 'react-native';
-
 import useActions from './src/hooks/useActions'
-import useTypedSelector from './src/hooks/useTypedSelector'
 import RootNavigator from './src/routes/RootNavigator';
 import { COLORS } from './src/utilities/enum';
 
 const App = () => {
   const actions = useActions()
-  const state = useTypedSelector(state => state)
-  console.log("🚀 ~ file: App.tsx ~ line 18 ~ App ~ state", state)
   useEffect(() => {
-    actions.getMoviesApi({ limit: 10 })
+    actions.setIsLoading(true)
+    setTimeout(() => {
+      actions.getMoviesApi()
+      actions.setIsLoading(false)
+    }, 2000);
   }, [])
 
   return (<RootNavigator />);

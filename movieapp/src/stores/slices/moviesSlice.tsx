@@ -15,9 +15,6 @@ const moviesSlice = createSlice({
         setMovies: (state, { payload }: PayloadAction<Array<MovieType>>) => {
             state.movies = payload;
         },
-        removeMovies: (state, { payload }: PayloadAction<number>) => {
-            state.movies.filter(item => item.id !== payload)
-        },
         setIsLoading: (state, { payload }: PayloadAction<boolean>) => {
             state.loader = payload
         },
@@ -25,6 +22,6 @@ const moviesSlice = createSlice({
 })
 
 
-export const { setMovies, removeMovies, setIsLoading } = moviesSlice.actions
+export const { setMovies, setIsLoading } = moviesSlice.actions
 
 export default moviesSlice

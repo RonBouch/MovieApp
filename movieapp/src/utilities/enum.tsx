@@ -6,6 +6,8 @@ export const SCREENS: any = {
 
 export const COLORS: any = {
     BLACK: 'black',
+    BLACK_OP: 'rgba(0, 0, 0,0.6)',
     WHITE: 'white',
     RED: 'red',
+    GRAY: 'rgba(102, 102, 102,0.4)'
 }

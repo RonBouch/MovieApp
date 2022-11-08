@@ -1,11 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react'
 import { TouchableOpacity, StyleSheet, View, Text } from 'react-native';
-import { RootStack } from '../routes/DrawerNavigator';
 import { SCREENS } from '../utilities/enum';
 
 const SideMenu: React.FC = () => {
-    const navigation = useNavigation<RootStack>();
+    const navigation = useNavigation<any>();
     return (
         <View style={styles.container}>
             <TouchableOpacity style={styles.drawerItem} onPress={() => navigation.navigate(SCREENS.HomePage)}>

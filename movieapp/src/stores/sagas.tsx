@@ -5,18 +5,13 @@ import * as actions from './actions'
 import * as moviesSlicesActions from './slices/moviesSlice'
 import * as userSlicesActions from './slices/userSlice'
 import { MovieType } from './types'
-
+import localData from '../localData.json';
 function* getMoviesApi(action: ReturnType<typeof actions.getMoviesApi>) {
     yield put(moviesSlicesActions.setIsLoading(true))
 
-    const {
-        payload: { limit },
-    } = action
-
     try {
-        const { data }: AxiosResponse<Array<MovieType>> = yield axios.get(
-            `https://jsonplaceholder.typicode.com/users/1/posts?_limit=${limit}`,
-        )
+        // const { data }: AxiosResponse<Array<MovieType>> = yield axios.get(`http://localhost:5000/getMovies`)
+        const data = localData.Search
 
         yield put(moviesSlicesActions.setMovies(data))
     } catch (err) {

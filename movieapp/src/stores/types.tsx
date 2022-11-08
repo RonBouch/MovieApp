@@ -1,16 +1,21 @@
-export type GetMoviesApiPayload = {
-    limit: number
-}
+
 
 export type MovieType = {
-    userId: number
-    id: number
-    title: string
-    body: string
+    Title?: string,
+    Year?: string,
+    imdbID?: string,
+    Type?: string,
+    Poster?: string
+}
+
+export interface MovieProps {
+    item: MovieType;
+    setMovieSelected?: (item: MovieType) => void;
+    showDetails?: boolean;
 }
 
 export interface MoviesSliceType {
-    movies: MovieType[],
+    movies: MovieType[] | null,
     loader: boolean,
 }
 
@@ -19,3 +24,10 @@ export type RootStackParam = {
     Favorite: any;
     Login: any;
 };
+
+export type UserSliceType = {
+    favoriteMovies: MovieType[];
+    userName: string;
+    isConnected: boolean;
+
+}
