@@ -5,10 +5,10 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "client-install": "cd urlshortenerapp && npm i && cd ..",
+        "client-install": "cd .. && cd movieapp && yarn install",
         "install-all-deps": "npm i && npm run client-install",
         "server": "nodemon index.js",
-        "client": "cd .. && cd MyProducts && npx react-native run-ios",
+        "client": "cd .. && cd movieapp && npx react-native run-ios",
         "dev": "concurrently -n 'server,client' \"npm run server\"  \"npm run client\""
     },
     "author": "",
