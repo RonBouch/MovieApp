@@ -6,10 +6,10 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "client-install": "cd .. && cd movieapp && yarn install",
-        "install-all-deps": "npm i && npm run client-install",
+        "install-all-deps": "yarn install && yarn run client-install",
         "server": "nodemon index.js",
         "client": "cd .. && cd movieapp && npx react-native run-ios",
-        "dev": "concurrently -n 'server,client' \"npm run server\"  \"npm run client\""
+        "start": "concurrently -n 'server,client' \"yarn run server\"  \"yarn run client\""
     },
     "author": "",
     "license": "ISC",
