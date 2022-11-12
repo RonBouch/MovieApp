@@ -21,8 +21,8 @@ __Built with:__  <br />
   git clone git@github.com:RonBouch/MovieApp.git
 
 ***Run:***  <br />
- cd server && npm run install-all-deps     
+ cd server && yarn install-all-deps     
 
 ***To start server and client run:***  <br />
-  npm run dev
+  yarn start
 
