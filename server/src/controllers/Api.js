@@ -12,6 +12,56 @@ let users = [
 const jwt = require('jsonwebtoken');
 const {getDataFromApi} = require('../utilities/RestApi');
 require('dotenv').config()
+const mongoose = require('mongoose');
+const User = require('../models/user');
+
+
+const getAllUsers = (req, res) => {
+    User.find().then((users) => {
+        res.status(200).json({
+            users
+        })
+    }).catch(error => {
+        res.status(500).json({
+            error
+        })
+    });
+}
+
+const createUser = (req, res) => {
+    const {username, password} = req.body;
+
+    const user = new User({
+        _id: new mongoose.Types.ObjectId(),
+        username,
+        password
+    });
+
+    user.save().then(() => {
+        res.status(200).json({
+            message: 'Created user'
+        })
+    }).catch(error => {
+        res.status(500).json({
+            error
+        })
+    });
+}
+
+const getUser = (req, res) => {
+    const userID = req.params.userID;
+
+    User.findById(userID).then((user) => {
+        res.status(200).json({
+            user
+        })
+    }).catch(error => {
+        res.status(500).json({
+            error
+        })
+    });
+}
+
 
 //DELETE
 const deleteUser = (req, res) => {
@@ -48,9 +98,9 @@ const authenticateToken = (req, res, next) => {
 const getMovies = async (req, res) => {
     console.log("🚀 ~ file: Api.js ~ line 49 ~ getMovies ~ res", res)
     try {
-        const resp = await getDataFromApi()
-        console.log("res", resp)
-        res.send(resp)
+        // const resp = await getDataFromApi()
+        // console.log("res", resp)
+        // res.send(resp)
     } catch (error) {
         console.log("getMovies ~ error", error)
         res.send(res)
@@ -82,4 +132,4 @@ const register = (req, res) => {
 
 
 
-module.exports = {register, login, getMovie, getMovies, deleteUser, authenticateToken}
+module.exports = {register, login, getMovie, getMovies, deleteUser, authenticateToken, getAllUsers, createUser, getUser}
