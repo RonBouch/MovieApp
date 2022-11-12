@@ -9,3 +9,13 @@ Content-Type: application/json
 {
     "username":"ron"
 }
+
+###
+POST http://localhost:5000/createUser
+Content-Type: application/json
+
+
+{
+    "username":"ron",
+    "password":"123321"
+}
