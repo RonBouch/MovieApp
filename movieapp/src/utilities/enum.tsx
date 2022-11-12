@@ -1,5 +1,6 @@
 export const SCREENS: any = {
     HomePage: 'HomePage',
+    Home: 'Drawer',
     Favorite: 'Favorite',
     Login: 'Login',
 }
@@ -10,4 +11,9 @@ export const COLORS: any = {
     WHITE: 'white',
     RED: 'red',
     GRAY: 'rgba(102, 102, 102,0.4)'
+}
+
+export const LoginOrSignup = {
+    Login: 'login',
+    Signup: 'signup'
 }

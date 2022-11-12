@@ -3,10 +3,14 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require("mongoose");
 const userRoutes = require('./src/routes/Routers.js');
+const {verifyToken} = require('./src/middlewares/middleware.js');
 require('dotenv').config();
 
 const DBUri = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASS}@movieapp.3furmfg.mongodb.net/?retryWrites=true&w=majority`;
-mongoose.connect(DBUri)
+mongoose.connect(DBUri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
 mongoose.connection.on('connected', () => {
     console.log('MongoDB Connected!');
 });

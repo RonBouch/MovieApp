@@ -1,18 +1,17 @@
-const fetch = require('node-fetch');
+const fetch = (...args) =>
+    import('node-fetch').then(({default: fetch}) => fetch(...args));
 require('dotenv').config()
 
-const api = "https://www.omdbapi.com/?i=tt3896198&apikey="
 const getDataFromApi = async () => {
+    const api = `https://omdbapi.com/?apikey=${process.env.API_KEY}&s=kill`
     try {
-        console.log("GGG ")
         const headers = {}
         headers['Accept'] = 'application/json'
         headers['Content-Type'] = 'application/json'
         headers['Access-Control-Allow-Origin'] = '*'
-        let url = `${api}${process.env.API_KEY}`
+        let url = api
         let res = await fetch(url)
         res = await res.json()
-        console.log("🚀 ~ file: RestApi.js ~ line 15 ~ getDataFromApi ~ res", res)
         return res;
 
     } catch (error) {

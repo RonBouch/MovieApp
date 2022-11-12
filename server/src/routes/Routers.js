@@ -1,19 +1,14 @@
 const express = require('express');
-const {getMovies, login, deleteUser, getMovie, register, authenticateToken, createUser, getAllUsers} = require('../controllers/Api.js')
+const {getMovies, login, signup, getAllUsers} = require('../controllers/Api.js');
+const {verifyToken} = require('../middlewares/middleware.js');
 const router = express.Router();
 
 //Get
 router.get("/getMovies", getMovies);
-router.post("/login", login);
-router.post("/authenticateToken", authenticateToken);
-router.post("/getAllUsers", getAllUsers);
-// router.get("/getMovie/:url", getMovie);
+router.get("/getAllUsers", getAllUsers);
 
 //POST
-router.post("/register", register);
-router.post("/createUser", createUser);
-
-//DELETE
-// router.delete("/deleteUser/:url", deleteUser);
+router.post("/signup", verifyToken, signup);
+router.post("/login", verifyToken, login);
 
 module.exports = router

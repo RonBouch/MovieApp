@@ -16,6 +16,7 @@ export interface MovieProps {
 
 export interface MoviesSliceType {
     movies: MovieType[] | null,
+    newMovies: MovieType[] | null,
     loader: boolean,
 }
 
@@ -27,7 +28,12 @@ export type RootStackParam = {
 
 export type UserSliceType = {
     favoriteMovies: MovieType[];
-    userName: string;
-    isConnected: boolean;
-
+    isConnected: boolean | null;
 }
+
+
+export type UserTypes = {
+    username: string;
+    password: string;
+}
+

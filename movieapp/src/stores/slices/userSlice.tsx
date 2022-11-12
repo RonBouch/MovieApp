@@ -3,8 +3,7 @@ import { MovieType, UserSliceType } from '../types'
 
 const initialState: UserSliceType = {
     favoriteMovies: [],
-    userName: '',
-    isConnected: false
+    isConnected: null,
 }
 
 const userSlice = createSlice({
@@ -19,15 +18,12 @@ const userSlice = createSlice({
                 state.favoriteMovies = isNewItem
             }
         },
-        setUserDetails: (state, { payload }: PayloadAction<string>) => {
-            state.userName = payload;
-        },
         setIsConnected: (state, { payload }: PayloadAction<boolean>) => {
             state.isConnected = payload;
         },
     },
 })
 
-export const { setFavorite, setUserDetails, setIsConnected } = userSlice.actions
+export const { setFavorite, setIsConnected } = userSlice.actions
 
 export default userSlice

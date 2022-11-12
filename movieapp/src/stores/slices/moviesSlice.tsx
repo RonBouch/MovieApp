@@ -5,6 +5,7 @@ import { MovieType, MoviesSliceType } from '../types'
 
 const initialState: MoviesSliceType = {
     movies: [],
+    newMovies: [],
     loader: false,
 }
 
@@ -13,7 +14,8 @@ const moviesSlice = createSlice({
     initialState,
     reducers: {
         setMovies: (state, { payload }: PayloadAction<Array<MovieType>>) => {
-            state.movies = payload;
+            state.movies = payload.slice();
+            state.newMovies = payload.slice().reverse();
         },
         setIsLoading: (state, { payload }: PayloadAction<boolean>) => {
             state.loader = payload

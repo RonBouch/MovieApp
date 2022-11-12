@@ -1,10 +1,9 @@
 import saga from 'redux-saga'
 import { all, fork } from 'redux-saga/effects'
-
 import { configureStore, } from '@reduxjs/toolkit'
-
 import { watchCommonSaga } from './sagas'
-import RootReducer from './slices'
+import RootReducer from './slices';
+
 
 function* RootSaga() {
     yield all([fork(watchCommonSaga)])
@@ -12,13 +11,14 @@ function* RootSaga() {
 
 const sagaMiddleware = saga()
 
+
 const store = configureStore({
     reducer: RootReducer,
     middleware: [
-        // ...getDefaultMiddleware({ thunk: false, serializableCheck: false }),
         sagaMiddleware,
     ],
 })
+
 
 sagaMiddleware.run(RootSaga)
 

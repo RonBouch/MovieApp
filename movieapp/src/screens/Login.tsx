@@ -1,15 +1,19 @@
 import { useNavigation } from '@react-navigation/native'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Text, View, ImageBackground, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
-import { COLORS, SCREENS } from '../utilities/enum'
+import { COLORS, LoginOrSignup, SCREENS } from '../utilities/enum'
 import { Formik } from 'formik';
 import CustomTextInput from '../components/CustomTextInput'
 import * as Yup from 'yup';
 import { nameValidation, passwordValidation } from '../utilities/Validations'
+import { getJwt } from '../utilities/Tools';
+import useActions from '../hooks/useActions';
+import useTypedSelector from '../hooks/useTypedSelector';
+import { Api } from '../utilities/RestApi';
 
 
 const validationSchema = Yup.object().shape({
-    userName: nameValidation(),
+    username: nameValidation(),
     password: passwordValidation(),
 });
 
@@ -17,17 +21,37 @@ const Login: React.FC = () => {
     const navigation = useNavigation<any>();
     const userNameRef = useRef<TextInput>();
     const passwordRef = useRef<TextInput>();
+    const [errMessage, setErrMessage] = useState('');
+    const actions = useActions()
+    const { isConnected } = useTypedSelector(state => state.userReducer)
 
-    const onSubmit = (e: any) => {
-        console.log("🚀 ~ file: Login.tsx ~ line 19 ~ onSubmit ~ e", e)
-        navigation.navigate('Drawer')
+    useEffect(() => {
+        setErrMessage('')
+        if (isConnected) navigation.navigate(SCREENS.Home);
+    }, [isConnected]);
+
+    const onSubmit = async (data: any, { resetForm }: any) => {
+        try {
+            getJwt(data).then(async res => {
+                const response = await Api(isConnected === null ? LoginOrSignup.Signup : LoginOrSignup.Login, res)
+                if (response.token) {
+                    actions.setIsConnected(true);
+                    navigation.navigate(SCREENS.Home);
+                    resetForm()
+                } else {
+                    setErrMessage(response.message);
+                }
+            })
+        } catch (error) {
+            console.log("onSubmit ~ error", error)
+        }
     }
     return (
         <View style={styles.container}>
             <ImageBackground source={require("../../assets/bgImg.png")} resizeMode="cover" style={styles.image}>
                 <Formik
                     initialValues={{
-                        userName: '',
+                        username: '',
                         password: '',
                     }}
                     onSubmit={onSubmit}
@@ -50,16 +74,16 @@ const Login: React.FC = () => {
                                     ref={userNameRef}
                                     textAlign="right"
                                     label={'username'}
-                                    value={values.userName}
+                                    value={values.username}
                                     keyboardType={'name-phone-pad'}
-                                    onChangeText={handleChange('userName')}
+                                    onChangeText={handleChange('username')}
                                     onSubmitEditing={() => passwordRef?.current?.focus()}
                                     onEndEditing={() => {
-                                        validateField('userName');
+                                        validateField('username');
                                     }}
-                                    isValid={!(touched.userName && errors.userName)}
+                                    isValid={!(touched.username && errors.username)}
                                     inputHolderStyle={styles.inputHolderStyle}
-                                    errorMessage={errors.userName}
+                                    errorMessage={errors.username}
                                 />
                                 <CustomTextInput
                                     maxLength={20}
@@ -78,14 +102,14 @@ const Login: React.FC = () => {
                                 />
 
                                 <TouchableOpacity onPress={handleSubmit} style={styles.loginBtn}>
-                                    <Text style={styles.loginTxtBtn}>Login</Text>
+                                    <Text style={styles.loginTxtBtn}>{isConnected === null ? 'Signup' : 'Login'}</Text>
                                 </TouchableOpacity>
+                                {errMessage && < Text style={styles.errMsg}>{errMessage}</Text>}
                             </View>)
                     }}
                 </Formik>
-
             </ImageBackground>
-        </View>
+        </View >
     )
 }
 
@@ -143,6 +167,11 @@ const styles = StyleSheet.create({
         fontSize: 24,
         alignSelf: 'flex-start',
         left: 20
+    },
+    errMsg: {
+        fontSize: 20,
+        color: COLORS.RED,
+        top: 20
     }
 });
 export default Login;

@@ -6,17 +6,11 @@ import { SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 import useActions from './src/hooks/useActions'
 import RootNavigator from './src/routes/RootNavigator';
 import { COLORS } from './src/utilities/enum';
+import { persistStore } from 'redux-persist'
+import { PersistGate } from 'redux-persist/integration/react'
 
+let persistor = persistStore(store);
 const App = () => {
-  const actions = useActions()
-  useEffect(() => {
-    actions.setIsLoading(true)
-    setTimeout(() => {
-      actions.getMoviesApi()
-      actions.setIsLoading(false)
-    }, 2000);
-  }, [])
-
   return (<RootNavigator />);
 };
 const AppWrapper = () => {
@@ -26,7 +20,9 @@ const AppWrapper = () => {
       <SafeAreaView style={styles.safeBottom}>
         <StatusBar barStyle={'dark-content'} />
         <Provider store={store}>
-          <App />
+          <PersistGate loading={null} persistor={persistor}>
+            <App />
+          </PersistGate>
         </Provider>
       </SafeAreaView>
     </React.Fragment>
